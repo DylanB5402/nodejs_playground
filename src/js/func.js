@@ -10,8 +10,9 @@ class Taco {
     }
 }
 
-async function bar() {
-    return 687
+async function timeoutTest(time_ms) {
+    setTimeout(time_ms)
+    return 1
 }
 
 // cheese=cake&687=254&ice+cream=987
@@ -26,4 +27,5 @@ function toJSONString(str) {
     return "{\"" + str + "\"}"
 }
 
-module.exports = {foo, Taco, toJSONString}
+
+export default {foo, Taco, toJSONString}
