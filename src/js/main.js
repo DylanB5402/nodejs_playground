@@ -1,5 +1,5 @@
 const http = require('http')
-// const func = require("./func")
+const func = require("./func")
 
 const port = 3000;
 
@@ -17,7 +17,17 @@ const server = http.createServer((req, res) => {
       req.on('data', chunk => {
         data += chunk;
       }).on('end', () => {
-        res.write(data)
+        json_data = JSON.parse(func.toJSONString(data))
+        console.log(JSON.stringify(json_data))
+        // console.log(json_data["option"])
+        option = json_data["option"]
+        resp = ""
+        if (option == "one") {
+          resp = "taco"
+        } else if (option == "two") {
+          resp = "potato"
+        }
+        res.write(resp)
         res.end()
       })
   }

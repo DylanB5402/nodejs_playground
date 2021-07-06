@@ -27,5 +27,13 @@ function toJSONString(str) {
     return "{\"" + str + "\"}"
 }
 
+function foo1() {
+    return 1
+}
+
+function foo2() {
+    return 2
+}
+
 
 module.exports = {foo, Taco, toJSONString, timeoutTest}
