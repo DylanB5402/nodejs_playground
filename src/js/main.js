@@ -5,18 +5,35 @@ const port = 3000;
 
 const server = http.createServer((req, res) => {
   // console.log(req.headers)
-
-  req.on('data', chunk => {
-    console.log(`Data chunk available: ${chunk}`)
-  })
-  req.on('end', () => {
-    console.log(JSON.parse(data).todo); // 'Buy the milk'
-    res.end();
-  })
-
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
-  res.end('<h1>Hello, World!</h1>')
+
+  let data = '';
+  console.log(req.headers)
+
+  req.on('error', (err) => {
+    console.error(err.stack)
+  })
+
+  if (req.method == 'POST') {
+      req.on('data', chunk => {
+        // console.log(`Data chunk available: ${chunk}`)
+        data += chunk;
+      }).on('end', () => {
+        res.write(data)
+        res.end()
+      })
+      
+  }
+
+  req.on('end', () => {
+    // console.log(JSON.parse(data).todo); // 'Buy the milk'
+    console.log(data)
+    res.end();
+  })
+ 
+  // res.end(data)
+  
 })
 
 server.listen(port, () => {
