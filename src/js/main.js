@@ -1,13 +1,12 @@
-import { createServer } from 'http';
-import func from "./func";
+const http = require('http')
+// const func = require("./func")
 
 const port = 3000;
 
-const server = createServer((req, res) => {
+const server = http.createServer((req, res) => {
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
-  // console.log(req.headers)
-  // console.log(req.method)
+
 
   req.on('error', (err) => {
     console.error(err.stack)
@@ -16,7 +15,6 @@ const server = createServer((req, res) => {
   if (req.method == 'POST') {
       let data = '';
       req.on('data', chunk => {
-        // console.log("chunk = " + chunk)
         data += chunk;
       }).on('end', () => {
         res.write(data)
