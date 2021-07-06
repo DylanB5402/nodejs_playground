@@ -1,12 +1,11 @@
 const http = require('http')
+const func = require("./func")
 
 const port = 3000;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
-
-  let data = '';
   console.log(req.headers)
   console.log(req.method)
 
@@ -15,7 +14,11 @@ const server = http.createServer((req, res) => {
   })
 
   if (req.method == 'POST') {
+      let data = '';
       req.on('data', chunk => {
+        // console.log(687)
+        // console.log(JSON.stringify(String(chunk)))
+        console.log("chunk = " + chunk)
         data += chunk;
       }).on('end', () => {
         res.write(data)
@@ -24,30 +27,19 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.method == 'GET') {
-    // console.log('received GET request')
-    // req.on('end', () => {
-    //   console.log(687)
-    //   // data += chunk;
-    //   data += 'GET request received'
-    //   console.log('data: ' + data)
-    //   res.write(data)
-    //   res.end()
-    // })
-    req.on('data', chunk => {
-        // data += 'received GET request';
-    }).on('end', () => {
-      data += 'received GET request';
-      res.write(data)
+    req.on('data', chunk => {}).on('end', () => {
+      res.write('received GET   request')
+      // res.write(String(func.foo(1, 2, 3)))
+      // taco = new func.Taco(1, 2, 4)
+      // res.write(String(taco.d))
       res.end()
     })
   }
-
-  // req.on('end', () => {
-  //   res.end();
-  // })  
 })
 
 server.listen(port, () => {
   console.log(`Server running at port ${port}`)
   console.log(port);
 })
+
+
