@@ -1,15 +1,14 @@
 const http = require('http')
 
-// const port = process.env.PORT
 const port = 3000;
 
 const server = http.createServer((req, res) => {
-  // console.log(req.headers)
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
 
   let data = '';
   console.log(req.headers)
+  console.log(req.method)
 
   req.on('error', (err) => {
     console.error(err.stack)
@@ -17,23 +16,35 @@ const server = http.createServer((req, res) => {
 
   if (req.method == 'POST') {
       req.on('data', chunk => {
-        // console.log(`Data chunk available: ${chunk}`)
         data += chunk;
       }).on('end', () => {
         res.write(data)
         res.end()
       })
-      
   }
 
-  req.on('end', () => {
-    // console.log(JSON.parse(data).todo); // 'Buy the milk'
-    console.log(data)
-    res.end();
-  })
- 
-  // res.end(data)
-  
+  if (req.method == 'GET') {
+    // console.log('received GET request')
+    // req.on('end', () => {
+    //   console.log(687)
+    //   // data += chunk;
+    //   data += 'GET request received'
+    //   console.log('data: ' + data)
+    //   res.write(data)
+    //   res.end()
+    // })
+    req.on('data', chunk => {
+        // data += 'received GET request';
+    }).on('end', () => {
+      data += 'received GET request';
+      res.write(data)
+      res.end()
+    })
+  }
+
+  // req.on('end', () => {
+  //   res.end();
+  // })  
 })
 
 server.listen(port, () => {
