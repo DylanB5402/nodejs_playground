@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
 
-
+  console.log(req.headers)
   req.on('error', (err) => {
     console.error(err.stack)
   })
@@ -17,9 +17,11 @@ const server = http.createServer((req, res) => {
       req.on('data', chunk => {
         data += chunk;
       }).on('end', () => {
-        json_data = JSON.parse(func.toJSONString(data))
-        console.log(JSON.stringify(json_data))
+        console.log(data)
+        // json_data = JSON.parse(func.toJSONString(data))
+        // console.log(JSON.stringify(json_data))
         // console.log(json_data["option"])
+        json_data = JSON.parse(data)
         option = json_data["option"]
         resp = ""
         if (option == "one") {
