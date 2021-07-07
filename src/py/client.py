@@ -15,11 +15,11 @@ def send_get():
     req = requests.get("http://localhost:3000", headers= request_header)
     print(req.content)  
 
-send_post()
 # send_post()
-# send_get()
+# send_post()
+send_get()
 
-# send_post({ 'option' : 'one'})
-# send_post({ 'option' : 'two'})
-# send_post({ 'option' : 'three'})
+send_post({ 'option' : 'one'})
+send_post({ 'option' : 'two'})
+send_post({ 'option' : 'three'})
 # print(str(request_header))
