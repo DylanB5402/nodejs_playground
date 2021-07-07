@@ -1,6 +1,6 @@
 const http = require('http')
 
-const data = JSON.stringify( {
+const data = JSON.stringify({
     "option" : "one"
 })
 
