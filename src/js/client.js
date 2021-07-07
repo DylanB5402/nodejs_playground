@@ -8,7 +8,8 @@ const options = {
     hostname: 'localhost',
     port: 3000,
     path: '/todos',
-    method: 'POST',
+    // method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
       'Content-Length': data.length
@@ -19,7 +20,6 @@ console.log("attempting request")
 const req = http.request(options, res => {
     console.log(`statusCode: ${res.statusCode}`)
     res.on('data', d => {
-        // process.stdout.write(d)
         console.log(String(d))
     })
 })
