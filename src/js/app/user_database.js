@@ -9,21 +9,32 @@ class UserDatabase {
     }
 
     initDatabase() {
-        this.db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, number REAL, drink TEXT);", (res, err) => {
+        this.db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, number REAL, drink TEXT);", (err) => {
             if (err != undefined) {
                 console.log(err);
             }
         });
     }
 
-    createNewUser(name, number, drink, res) {
-        this.db.run("INSERT INTO users (name, number, drink) VALUES", (res, err) => {
-
+    createNewUser(name, number, drink, http_response) {
+        this.db.run(`INSERT INTO users (name, number, drink) VALUES ("${name}", ${number}, "${drink}");`, (err) => {
+            if (err != undefined) {
+                console.log(err);
+                http_response.json({"success" : false});
+            } else {
+                http_response.json({"success" : true});
+            }  
         })
     }
 
-    getAllUsers(res) {
-        
+    getAllUsers(http_response) {
+        var response_string = "";
+        this.db.all("SELECT * FROM users;", (err, rows) => {
+            rows.forEach((row) => {
+                response_string += "<p>" + JSON.stringify(row, null, 2) + "</p>";
+            })
+            http_response.send(response_string);
+        })
     }
 
 

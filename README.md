@@ -11,6 +11,16 @@ Basic Web App requirements
 
 -  Use post requests to add new users
 
+    - Body data:
+        - "name" : string
+        
+        - "number" : float
+
+        - "drink" : string
+    
+    - Response:
+        - "success" : true/false
+
 - Navigate to /users/:id to access a web page with all that user's data 
 
     - show an error page if the user doesn't exist

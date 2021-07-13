@@ -8,7 +8,7 @@ request_data = {'cheese' : 'cake', '687' : '254', 'ice cream' : '987', 'banana' 
 #     print(req.content)  
 
 def send_post(req_data = request_data):
-    req = requests.post("http://localhost:3000", headers= request_header, data = req_data)
+    req = requests.post("http://localhost:3000/users/create", headers= request_header, data = req_data)
     print(req.content)  
 
 def send_get():
@@ -17,9 +17,12 @@ def send_get():
 
 # send_post()
 # send_post()
-send_get()
+# send_get()
 
-send_post({ 'option' : 'one'})
-send_post({ 'option' : 'two'})
-send_post({ 'option' : 'three'})
+# send_post({ 'option' : 'one'})
+# send_post({ 'option' : 'two'})
+# send_post({ 'option' : 'three'})
+send_post( {'name' : 'steve ', 
+                "number" : 137.4, 
+                "drink" : "coffee"})
 # print(str(request_header))

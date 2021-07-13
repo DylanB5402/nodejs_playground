@@ -1,22 +1,36 @@
-const express = require('express')
-const user_database = require('./user_database')
+const express = require('express');
+const user_database = require('./user_database');
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-var database = new user_database.UserDatabase('users.db')
+var database = new user_database.UserDatabase('users.db');
 
 app.get('/', (req, res) => {
-  res.send('GET request received!')
+  res.send('GET request received!');
+})
+
+app.get('/users/all', (req, res) => {
+  // res.send("taco");
+  database.getAllUsers(res);
+})
+
+app.post('/users/create', (req, res) => {
+  var name = req.body['name'];
+  var number = req.body['number'];
+  var drink = req.body['drink'];
+  database.createNewUser(name, number, drink, res);
 })
 
 app.get('/users/:id', (req, res) => {
   // res.send(req.params['id']);
-
+  // database.getAllUsers(res);
 })
+
+
 
 // app.get('/students', (req, res) => {
 //   database.getAllStudentNames(res);
