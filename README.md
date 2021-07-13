@@ -6,7 +6,7 @@ Basic Web App requirements
 
         - id (auto populated)
         - name
-        - date
+        - number
         - favorite drink
 
 -  Use post requests to add new users
@@ -15,4 +15,6 @@ Basic Web App requirements
 
     - show an error page if the user doesn't exist
 
-- (stretch) use pug to create html pages showing the user's data
+- Navigate to /users/all to see all user data
+
+- (stretch) use Pug to create html pages showing the user's data
