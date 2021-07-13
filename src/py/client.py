@@ -22,7 +22,7 @@ def send_get():
 # send_post({ 'option' : 'one'})
 # send_post({ 'option' : 'two'})
 # send_post({ 'option' : 'three'})
-send_post( {'name' : 'steve ', 
-                "number" : 137.4, 
-                "drink" : "coffee"})
+send_post( {'name' : 'banana ', 
+                "number" : 4, 
+                "drink" : "banana"})
 # print(str(request_header))

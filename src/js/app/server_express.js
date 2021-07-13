@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/users/all', (req, res) => {
-  // res.send("taco");
   database.getAllUsers(res);
 })
 
@@ -26,8 +25,8 @@ app.post('/users/create', (req, res) => {
 })
 
 app.get('/users/:id', (req, res) => {
-  // res.send(req.params['id']);
-  // database.getAllUsers(res);
+  var id = req.params['id']
+  database.getUser(id, res);
 })
 
 

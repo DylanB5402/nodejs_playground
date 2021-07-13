@@ -27,4 +27,8 @@ Basic Web App requirements
 
 - Navigate to /users/all to see all user data
 
-- (stretch) use Pug to create html pages showing the user's data
+- use Pug to create html pages showing the user's data
+
+- serve a static site
+
+- serve a static site that uses javascript to send a post request to create new users

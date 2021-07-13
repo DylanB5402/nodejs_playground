@@ -37,6 +37,18 @@ class UserDatabase {
         })
     }
 
+    getUser(id, http_response) {
+        this.db.get(`SELECT * FROM users WHERE id = ${id};`, (err, row) => {
+            var response_string = JSON.stringify(row, null, 2);
+            // console.log(response_string);
+            if (response_string != undefined) {
+                http_response.send(response_string);
+            } else {
+                http_response.send(`User with id ${id} not found`);
+            }
+        })
+    }
+
 
     // getAllStudentNames(res) {
     //     this.db.all("SELECT name FROM students", (err, rows) => {
