@@ -36,4 +36,4 @@ function foo2() {
 }
 
 
-module.exports = {foo, Taco, toJSONString, timeoutTest}
+export default {foo, Taco, toJSONString, timeoutTest}

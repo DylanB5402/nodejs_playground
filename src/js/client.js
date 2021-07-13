@@ -1,4 +1,4 @@
-const http = require('http')
+import { request } from 'http'
 
 const data = JSON.stringify({
     "option" : "one"
@@ -17,7 +17,7 @@ const options = {
   }
 
 console.log("attempting request")
-const req = http.request(options, res => {
+const req = request(options, res => {
     console.log(`statusCode: ${res.statusCode}`)
     res.on('data', d => {
         console.log(String(d))

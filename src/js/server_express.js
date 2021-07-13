@@ -1,10 +1,10 @@
-const express = require('express');
+import express, { json, urlencoded } from 'express';
 
 const app = express()
 const port = 3000
 
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(json()) // for parsing application/json
+app.use(urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.get('/', (req, res) => {
   res.send('GET request received!')
