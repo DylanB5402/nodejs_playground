@@ -15,7 +15,7 @@ class Data {
 
     setData(err, rows) {
         // console.log(rows)
-        console.log(687)
+        // console.log(687)
         this.studentNames = rows
     }
 }
@@ -28,7 +28,7 @@ class SQLiteDatabase {
     }
     
 
-    async getAllStudentNames(data) {
+    getAllStudentNames(data) {
         // var data = new Data();/
         // this.db.all("SELECT name FROM students", (err, rows) => {
         //     console.log(rows);
@@ -36,8 +36,9 @@ class SQLiteDatabase {
         //     data.setNames(rows);
         //     // console.log(data.studentNames);
         // })
-        this.db.all("SELECT name FROM students", data.setData);
-        return data.studentNames;
+        // const result = this.db.all("SELECT name FROM students", []);
+        // console.log(result.rows)
+        // return data.studentNames;
     }
 
     close() {
@@ -46,9 +47,16 @@ class SQLiteDatabase {
 }
 
 d = new SQLiteDatabase("test.db");
-data = new Data()
-d.getAllStudentNames(data).then
-// console.log(d.getAllStudentNames());
-// console.log(d.getAllStudentNames(data))
-// console.log(d.studentNames)
-console.log(254, data.studentNames)
+data = new Data();
+d.getAllStudentNames(data)
+// const run = async () => {
+//     await d.getAllStudentNames(data);
+//     // return data.studentNames
+//     return 687;
+//     // console.log(254, data.studentNames);
+// }
+
+// run().then(res => {
+//     console.log(res);
+// })
+

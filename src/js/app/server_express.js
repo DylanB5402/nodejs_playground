@@ -10,6 +10,10 @@ app.get('/', (req, res) => {
   res.send('GET request received!')
 })
 
+app.get('/students', (req, res) => {
+  res.send('GET request received!')
+})
+
 app.post('/', (req, res) => {
     console.log(req.body)
     // console.log(req.body['687'])

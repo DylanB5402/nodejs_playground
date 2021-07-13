@@ -14,4 +14,5 @@ db.serialize( () => {
         }
     })
 })
+
 db.close()
