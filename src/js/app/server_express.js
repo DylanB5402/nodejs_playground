@@ -1,6 +1,3 @@
-// import express, { json, urlencoded } from 'express';
-// import {SQLiteDatabase } from './sqlite_callbacks'
-
 const express = require('express')
 const sqlite_callbacks = require('./sqlite_callbacks')
 
@@ -9,21 +6,23 @@ const port = 3000
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 var database = new sqlite_callbacks.SQLiteDatabase('test.db')
 
 app.get('/', (req, res) => {
   res.send('GET request received!')
-  
 })
 
 app.get('/students', (req, res) => {
-  // res.send('GET request received!')
   database.getAllStudentNames(res);
+})
+
+app.get('/users/:id', (req, res) => {
+  res.send(req.params['id']);
 })
 
 app.post('/', (req, res) => {
     console.log(req.body)
-    // console.log(req.body['687'])
     resp = ""
     option = req.body['option']
     if (option == "one") {
