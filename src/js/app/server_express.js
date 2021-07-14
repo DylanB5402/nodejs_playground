@@ -1,16 +1,23 @@
 const express = require('express');
 const user_database = require('./user_database');
 
+
 const app = express();
 const port = 3000;
 
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+// const path = require('path')
+// app.use('/static', express.static(path.join(__dirname, 'public')))
+app.use(express.static('public'))
+
+
 var database = new user_database.UserDatabase('users.db');
 
 app.get('/', (req, res) => {
-  res.send('GET request received!');
+  // res.send('GET request received!');
+  console.log(req.body)
 })
 
 app.get('/users/all', (req, res) => {
@@ -22,31 +29,13 @@ app.post('/users/create', (req, res) => {
   var number = req.body['number'];
   var drink = req.body['drink'];
   database.createNewUser(name, number, drink, res);
+  // console.log(req.body);
 })
 
 app.get('/users/:id', (req, res) => {
   var id = req.params['id']
   database.getUser(id, res);
 })
-
-
-
-// app.get('/students', (req, res) => {
-//   database.getAllStudentNames(res);
-// })
-
-
-// app.post('/', (req, res) => {
-//     console.log(req.body)
-//     resp = ""
-//     option = req.body['option']
-//     if (option == "one") {
-//         resp = "taco"
-//     } else if (option == "two") {
-//         resp = "potato"
-//     }
-//     res.send(resp)
-// })
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
