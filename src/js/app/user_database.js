@@ -64,7 +64,6 @@ class UserDatabase {
         })
     }
 
-
     close() {
         this.db.close();
     }
