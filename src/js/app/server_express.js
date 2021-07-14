@@ -8,8 +8,6 @@ const port = 3000;
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-// const path = require('path')
-// app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use(express.static('public'))
 
 
@@ -24,17 +22,23 @@ app.get('/users/all', (req, res) => {
   database.getAllUsers(res);
 })
 
+
+
 app.post('/users/create', (req, res) => {
   var name = req.body['name'];
   var number = req.body['number'];
   var drink = req.body['drink'];
   database.createNewUser(name, number, drink, res);
-  // console.log(req.body);
 })
 
 app.get('/users/:id', (req, res) => {
   var id = req.params['id']
   database.getUser(id, res);
+})
+
+app.get('/view/:id', (req, res) =>  {
+  var id = req.params['id'];
+  database.viewUser(id, res)
 })
 
 app.listen(port, () => {

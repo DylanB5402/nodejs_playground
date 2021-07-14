@@ -1,11 +1,13 @@
 var sqlite3 = require('sqlite3').verbose();
+var template_engine = require('./template_engine');
 
 class UserDatabase {
 
     constructor(name) {
         this.name = name;
         this.db = new sqlite3.Database(name);
-        this.initDatabase()
+        this.initDatabase();
+        this.temp_engine = new template_engine.TemplateEngine();
     }
 
     initDatabase() {
@@ -49,17 +51,19 @@ class UserDatabase {
         })
     }
 
+    viewUser(id, http_response) {
+        this.db.get(`SELECT * FROM users WHERE id = ${id};`, (err, row) => {
+            if (row != undefined) {
+                var name = row['name'];
+                var number = row['number'];
+                var drink = row['drink'];
+                http_response.send(this.temp_engine.getUser(id, name, number, drink));
+            } else {
+                http_response.send(`User with id ${id} not found`);
+            }
+        })
+    }
 
-    // getAllStudentNames(res) {
-    //     this.db.all("SELECT name FROM students", (err, rows) => {
-    //         console.log(rows);
-    //         var resp_string = "";
-    //         rows.forEach((row) => {
-    //             resp_string = resp_string + row['name'] + ' ';
-    //         })
-    //         res.send(resp_string)
-    //     })
-    // }
 
     close() {
         this.db.close();
