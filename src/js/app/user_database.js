@@ -7,6 +7,7 @@ class UserDatabase {
         this.name = name;
         this.db = new sqlite3.Database(name);
         this.initDatabase();
+        this.initLoginDatabase();
         this.temp_engine = new template_engine.TemplateEngine();
     }
 
@@ -63,6 +64,46 @@ class UserDatabase {
             }
         })
     }
+
+    initLoginDatabase() {
+        this.db.run("CREATE TABLE IF NOT EXISTS logins (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT);", (err) => {
+            if (err != undefined) {
+                console.log(err);
+            }
+        });
+    }
+
+    encryptPassword(password) {
+        // insert encryption here
+        return password;
+    }
+
+    decryptPassword(password) {
+        // insert decryption here
+        return password;
+    }
+
+    createLogin(username, password, http_response) {
+        // console.log(username);
+        this.db.get(`SELECT * FROM logins WHERE username = ${username};`, (err, row) => {
+            // console.log("error: " + err);
+            // console.log(row);
+            if (row != undefined) {
+                http_response.send("invalid username, please try again");
+            } else {
+                this.db.run(`INSERT INTO logins (username, password) VALUES ("${username}", "${password}");`, (err) => {
+                    if (err != undefined) {
+                        console.log(err);
+                        http_response.send("database insertion failed, please try again");
+                    } else {
+                        http_response.send("successful database insertion");
+                    }
+                })
+            }
+        })
+    }
+
+
 
     close() {
         this.db.close();

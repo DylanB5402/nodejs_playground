@@ -33,3 +33,10 @@ Basic Web App requirements
 
 - serve a static site that sends a post request to create new users
 
+- login system
+
+    - create new accounts
+
+        - check if username is already taken
+            - send invalid username response if taken
+            - create new account otherwise

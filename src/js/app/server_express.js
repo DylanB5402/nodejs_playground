@@ -1,5 +1,6 @@
 const express = require('express');
 const user_database = require('./user_database');
+const session = require('express-session');
 
 
 const app = express();
@@ -8,6 +9,10 @@ const port = 3000;
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static('public'));
+app.use(session({secret: 'secret',
+                  resave: true,
+                  saveUninitialized: true
+}));
 
 var database = new user_database.UserDatabase('users.db');
 
@@ -49,6 +54,14 @@ app.get('/users/:id', (req, res) => {
 app.get('/view/:id', (req, res) =>  {
   var id = req.params['id'];
   database.viewUser(id, res);
+})
+
+app.post('/signup/new', (req, res) => {
+  console.log(req.body);
+  // res.send('received');
+  var username = req.body['username'];
+  var password = req.body['password'];
+  database.createLogin(username, password, res);
 })
 
 app.listen(port, () => {
