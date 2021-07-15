@@ -40,3 +40,5 @@ Basic Web App requirements
         - check if username is already taken
             - send invalid username response if taken
             - create new account otherwise
+
+    - log into existing account

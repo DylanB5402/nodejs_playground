@@ -86,8 +86,6 @@ class UserDatabase {
     createLogin(username, password, http_response) {
         // console.log(username);
         this.db.get(`SELECT * FROM logins WHERE username = ${username};`, (err, row) => {
-            // console.log("error: " + err);
-            // console.log(row);
             if (row != undefined) {
                 http_response.send("invalid username, please try again");
             } else {
@@ -96,13 +94,33 @@ class UserDatabase {
                         console.log(err);
                         http_response.send("database insertion failed, please try again");
                     } else {
-                        http_response.send("successful database insertion");
+                        http_response.send("New Account Created");
                     }
                 })
             }
         })
     }
 
+    login(username, password, http_request, http_response) {
+        this.db.get(`SELECT * FROM logins WHERE username = "${username}";`, (err, row) => {
+            if (err != undefined) {
+                console.log(err);
+            } else {
+                if (row == undefined) {
+                    http_response.send("username does not exist");
+                } else {
+                    if (password == row["password"]) {
+                        // http_response.send("Logged in! Welcome " + username);
+                        http_request.session.loggedin = true;
+                        http_request.session.username = username;
+                        http_response.redirect("/home");
+                    } else {
+                        http_response.send("incorrect password");
+                    }
+                }
+            }
+        })
+    }
 
 
     close() {

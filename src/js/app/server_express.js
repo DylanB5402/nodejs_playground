@@ -26,7 +26,11 @@ app.get('/', (req, res) => {
  */
 app.get('/users/all', (req, res) => {
   // console.log(req);
-  database.getAllUsers(res);
+  if (req.session.loggedin) {
+     res.send("Hello World");
+  } else {
+    database.getAllUsers(res);
+  }
 })
 
 /**
@@ -57,11 +61,23 @@ app.get('/view/:id', (req, res) =>  {
 })
 
 app.post('/signup/new', (req, res) => {
-  console.log(req.body);
-  // res.send('received');
   var username = req.body['username'];
   var password = req.body['password'];
   database.createLogin(username, password, res);
+})
+
+app.post('/login', (req, res) => {
+  var username = req.body['username'];
+  var password = req.body['password'];
+  database.login(username, password, req, res);
+})
+
+app.get('/home', (req, res) => {
+  if (req.session.loggedin) {
+    res.send(req.session.username + " is logged in");
+  } else {
+    res.send("please log in");
+  }
 })
 
 app.listen(port, () => {
